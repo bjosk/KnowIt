@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Logo("Android")
+                            Logo()
                             QuizHolder(
                                 quizzes = listOf(
                                     ITInfrastructureQuiz,
@@ -167,7 +167,7 @@ fun QuizCard(quiz: Quiz) {
 }
 
 @Composable
-fun Logo(name: String, modifier: Modifier = Modifier) {
+fun Logo(modifier: Modifier = Modifier) {
     Text(
         text = stringResource(R.string.know_it),
         modifier = modifier
@@ -195,7 +195,7 @@ fun PreviewView(){
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Logo("Android")
+                    Logo()
                     //                        val quizOne = QuizData("IT Service Management", Arrays.asList(Question("Test?", Arrays.asList("wrong", "correct", "wrong", "wrong"), 1)))
                     QuizHolder(quizzes = listOf(ITInfrastructureQuiz, ITServiceManagementQuiz))
                 }

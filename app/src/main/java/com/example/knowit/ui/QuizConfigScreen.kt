@@ -2,11 +2,13 @@ package com.example.knowit.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -31,7 +33,7 @@ fun QuizConfigScreen(navController: NavController, quizId: Int?) {
         }) {
 
         }
-        Text(text = "${quiz!!.timer}")
+        Text(text = "${quiz!!.timer}", style = MaterialTheme.typography.displayLarge)
 
         //Look into this slider
         Slider(
@@ -41,7 +43,6 @@ fun QuizConfigScreen(navController: NavController, quizId: Int?) {
                 sliderPosition.value = adjustedValue.toFloat()
                 viewModel.updateQuizTimer(quizId, sliderPosition.value.toInt())
             },
-            steps = 6,
             valueRange = 5f..60f,
         )
 

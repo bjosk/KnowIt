@@ -1,12 +1,14 @@
 package data
-data class Quiz(val name: String, val questions: List<Question>){
+data class Quiz(val name: String, val questions: List<Question>, val Id: Int){
     var maxScore: Int = questions.count()
-    var highScore = 0
+    val highScore = 0
+    val timer = 0
 }
 
 data class Question(val text: String, val options: List<String>, val correctAnswerIndex: Int)
 
 val ITServiceManagementQuiz = Quiz(
+    Id = 1,
     name = "IT Service Management",
     questions = listOf(
         Question("What does ITIL stand for?", listOf("Information Technology Infrastructure Library", "International Technology Integrated Learning", "Informational Technology Integration Level", "Integrated Technology and Information Library"), 0),
@@ -23,6 +25,7 @@ val ITServiceManagementQuiz = Quiz(
 )
 
 val ITInfrastructureQuiz = Quiz(
+    Id = 2,
     name = "IT Infrastructure",
     questions = listOf(
         Question("What does RAID stand for in IT infrastructure?", listOf("Redundant Array of Independent Disks", "Random Access Integrated Devices", "Rapid Application Implementation and Deployment", "Reliable Array of Integrated Disks"), 0),

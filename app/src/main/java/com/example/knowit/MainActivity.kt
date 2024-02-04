@@ -51,6 +51,7 @@ import data.ITServiceManagementQuiz
 
 import com.example.knowit.ui.QuizzesListScreen
 import com.example.knowit.ui.QuizConfigScreen
+import com.example.knowit.ui.QuizSessionScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +72,11 @@ fun QuizApp() {
             // Retrieve the quiz ID from the back stack entry
             val quizId = backStackEntry.arguments?.getString("quizId")?.toIntOrNull()
             QuizConfigScreen(navController, quizId)
+        }
+        composable("quizSession/{quizId}") { backStackEntry ->
+            // Retrieve the quiz ID from the back stack entry
+            val quizId = backStackEntry.arguments?.getString("quizId")?.toIntOrNull()
+            QuizSessionScreen(navController, quizId)
         }
     }
 }

@@ -2,7 +2,7 @@ package data
 data class Quiz(val name: String, val questions: List<Question>, val Id: Int){
     var maxScore: Int = questions.count()
     val highScore = 0
-    val timer = 0
+    var timer = 30
 }
 
 data class Question(val text: String, val options: List<String>, val correctAnswerIndex: Int)

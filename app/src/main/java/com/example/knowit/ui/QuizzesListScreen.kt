@@ -32,15 +32,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.knowit.R
 import com.example.knowit.ui.theme.KnowItTheme
+import com.example.knowit.viewModel.QuizzesViewModel
 import data.ITInfrastructureQuiz
 import data.ITServiceManagementQuiz
 import data.Quiz
 
 @Composable
-fun QuizzesListScreen(navController: NavController?) {
+fun QuizzesListScreen(navController: NavController, quizzesViewModel: QuizzesViewModel = viewModel()) {
+    val quizzes = quizzesViewModel.quizzes.value
     KnowItTheme {
         // A surface container using the 'background' color from the theme
         Surface(
@@ -56,11 +60,9 @@ fun QuizzesListScreen(navController: NavController?) {
                 ) {
                     Logo()
                     QuizHolder(
-                        quizzes = listOf(
-                            ITInfrastructureQuiz,
-                            ITServiceManagementQuiz
-                        ),
-                        navController
+                        quizzes,
+                        navController,
+                        quizzesViewModel
                     )
                 }
             }
@@ -69,7 +71,7 @@ fun QuizzesListScreen(navController: NavController?) {
 }
 
 @Composable
-fun QuizHolder(quizzes: List<Quiz>, navController: NavController?){
+fun QuizHolder(quizzes: List<Quiz>, navController: NavController, quizzesViewModel: QuizzesViewModel){
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
@@ -82,13 +84,13 @@ fun QuizHolder(quizzes: List<Quiz>, navController: NavController?){
             .fillMaxSize()
     ) {
         for (quiz in quizzes){
-            QuizCard(quiz, navController)
+            QuizCard(quiz, navController) { navController.navigate("quizConfig/${quiz.Id}") }
         }
     }
 }
 
 @Composable
-fun QuizCard(quiz: Quiz, navController: NavController?) {
+fun QuizCard(quiz: Quiz, navController: NavController, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -101,7 +103,7 @@ fun QuizCard(quiz: Quiz, navController: NavController?) {
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(1.dp)
-                .clickable { navController?.navigate("quizConfig/${quiz.Id}") },
+                .clickable { onClick() },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(

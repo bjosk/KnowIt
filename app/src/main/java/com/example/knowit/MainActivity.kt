@@ -67,19 +67,14 @@ class MainActivity : ComponentActivity() {
 fun QuizApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "quizzesList") {
-        composable("quizzesList") { QuizzesListScreen(navController) }
+        composable("quizzesList") { QuizzesListScreen(navController = navController) }
         composable("quizConfig/{quizId}") { backStackEntry ->
-            // Retrieve the quiz ID from the back stack entry
-            val quizId = backStackEntry.arguments?.getString("quizId")?.toIntOrNull()
-            QuizConfigScreen(navController, quizId)
+            // Access the quizId from backStackEntry's arguments
+            val quizId = backStackEntry.arguments?.getString("quizId")?.toIntOrNull() ?: 0
+            QuizConfigScreen(quizId = quizId, navController = navController)
         }
-        composable("quizSession/{quizId}") { backStackEntry ->
-            // Retrieve the quiz ID from the back stack entry
-            val quizId = backStackEntry.arguments?.getString("quizId")?.toIntOrNull()
-            QuizSessionScreen(navController, quizId)
         }
     }
-}
 
 //@Preview
 //@Composable
